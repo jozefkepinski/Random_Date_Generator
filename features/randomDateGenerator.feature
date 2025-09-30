@@ -14,7 +14,7 @@ Feature: Random Date Generator
     Given I am on the random date generator page
     When I click the generate button
     And I store the first batch of dates
-    And I click the generate button again
+    And I click the generate button
     Then the new batch of dates should be different from the first batch
 
   Scenario Outline: Generate dates within a specific range

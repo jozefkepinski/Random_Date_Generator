@@ -13,8 +13,10 @@ export class RandomDateGeneratorPage {
     this.page = page;
     this.generateButton = page.locator('button:has-text("Generate Random Date")');
     this.outputContainer = page.locator('//textarea[@id="generatedRandomDateTextArea"]');
-    this.startDateInput = page.locator('input[placeholder="Start date"]');
-    this.endDateInput = page.locator('input[placeholder="End date"]');
+    //this.startDateInput = page.locator('input[placeholder="Start date"]');
+    this.startDateInput = page.locator('//*[@id="start"]');
+    //this.endDateInput = page.locator('input[placeholder="End date"]');
+    this.endDateInput = page.locator('//*[@id="end"]');
     this.frame = page.frameLocator('iframe[id="sp_message_iframe_1231401"]');
     this.acceptButton = this.frame.locator('//button[@title="Zaakceptować"]');
   }
