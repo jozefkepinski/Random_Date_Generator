@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "cucumber-js",
-    "test:headed": "cucumber-js --world-parameters '{\"headed\": true}'",
+    "test:headed": "HEADLESS=false npm run test",
     "playwright": "npx playwright test"
   },
   "repository": {
@@ -24,8 +24,9 @@
     "@cucumber/cucumber": "^12.2.0",
     "@playwright/test": "^1.55.1",
     "@types/node": "^24.6.0",
+    "playwright": "^1.55.1",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.3"
   },
   "dependencies": {
     "dotenv": "^17.2.3"

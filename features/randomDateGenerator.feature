@@ -1,5 +1,6 @@
 Feature: Random Date Generator
 
+  @test
   Scenario: Generate default set of random dates
     Given I am on the random date generator page
     When I click the generate button

@@ -24,6 +24,7 @@ When('I click the generate button', async () => {
 Then('I should see at least 10 dates displayed', async () => {
   const dates = await generator.getDates();
   expect(dates.length).toBeGreaterThanOrEqual(10);
+  browser.close()
 });
 
 Then('each generated date should match the format {string}', async (format) => {
@@ -32,6 +33,7 @@ Then('each generated date should match the format {string}', async (format) => {
   for (const date of dates) {
     expect(date).toMatch(regex);
   }
+  browser.close()
 });
 
 When('I store the first batch of dates', async () => {
@@ -41,6 +43,7 @@ When('I store the first batch of dates', async () => {
 Then('the new batch of dates should be different from the first batch', async () => {
   const secondBatch = await generator.getDates();
   expect(secondBatch).not.toEqual(firstBatch);
+  browser.close()
 });
 
 Given('I set start date to {string}', async (start) => {
@@ -59,6 +62,7 @@ Then('all generated dates should be between {string} and {string}', async (start
     const parsed = new Date(date);
     expect(parsed >= startDate && parsed <= endDate).toBeTruthy();
   }
+  browser.close()
 });
 
 Given('I clear the end date field', async () => {
@@ -68,4 +72,5 @@ Given('I clear the end date field', async () => {
 Then('I should see an error or no dates generated', async () => {
   const dates = await generator.getDates();
   expect(dates.length).toBeLessThan(1);
+  browser.close()
 });
