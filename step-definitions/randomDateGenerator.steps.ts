@@ -3,58 +3,55 @@ import { expect } from '@playwright/test';
 import { RandomDateGeneratorPage } from '../pages/randomDateGeneratorPage';
 import { chromium } from 'playwright';
 
-let page;
+//let page;
 let browser;
-let context;
+//let context;
 let generator: RandomDateGeneratorPage;
 let firstBatch: string[];
 
-Given('I am on the random date generator page', async () => {
-  browser = await chromium.launch({ headless: false });
-  context = await browser.newContext();
-  page = await context.newPage();
-  generator = new RandomDateGeneratorPage(page);
-  await generator.goto();
+Given('I am on the random date generator page', async function () {
+  this.generator = new RandomDateGeneratorPage(this.page);
+  await this.generator.waitUntilLoaded();
 });
 
-When('I click the generate button', async () => {
+When('I click the generate button', async function () {
   await generator.clickGenerate();
 });
 
-Then('I should see at least 10 dates displayed', async () => {
+Then('I should see at least 10 dates displayed', async function () {
   const dates = await generator.getDates();
   expect(dates.length).toBeGreaterThanOrEqual(10);
-  browser.close()
+  //browser.close()
 });
 
-Then('each generated date should match the format {string}', async (format) => {
+Then('each generated date should match the format {string}', async function() {
   const dates = await generator.getDates();
   const regex = /^\d{2}-\d{2}-\d{4}$/;
   for (const date of dates) {
     expect(date).toMatch(regex);
   }
-  browser.close()
+  //browser.close()
 });
 
-When('I store the first batch of dates', async () => {
+When('I store the first batch of dates', async function () {
   firstBatch = await generator.getDates();
 });
 
-Then('the new batch of dates should be different from the first batch', async () => {
+Then('the new batch of dates should be different from the first batch', async function () {
   const secondBatch = await generator.getDates();
   expect(secondBatch).not.toEqual(firstBatch);
-  browser.close()
+  //browser.close()
 });
 
-Given('I set start date to {string}', async (start) => {
+Given('I set start date to {string}', async function (start) {
   await generator.setStartDate(start);
 });
 
-Given('I set end date to {string}', async (end) => {
+Given('I set end date to {string}', async function (end) {
   await generator.setEndDate(end);
 });
 
-Then('all generated dates should be between {string} and {string}', async (start, end) => {
+Then('all generated dates should be between {string} and {string}', async function (start, end) {
   const dates = await generator.getDates();
   const startDate = new Date(start);
   const endDate = new Date(end);
@@ -62,15 +59,15 @@ Then('all generated dates should be between {string} and {string}', async (start
     const parsed = new Date(date);
     expect(parsed >= startDate && parsed <= endDate).toBeTruthy();
   }
-  browser.close()
+  //browser.close()
 });
 
-Given('I clear the end date field', async () => {
+Given('I clear the end date field', async function () {
   await generator.clearEndDate();
 });
 
-Then('I should see an error or no dates generated', async () => {
+Then('I should see an error or no dates generated', async function () {
   const dates = await generator.getDates();
   expect(dates.length).toBeLessThan(1);
-  browser.close()
+  //browser.close()
 });
