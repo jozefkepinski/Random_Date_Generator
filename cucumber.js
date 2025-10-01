@@ -1,7 +1,13 @@
+require('ts-node').register();
+
 module.exports = {
-  default: [
-    '--require-module ts-node/register',
-    '--require step-definitions/**/*.ts',
-    'features/**/*.feature'
-  ].join(' ')
+  default: {
+    require: [
+      'features/support/**/*.ts',
+      'step-definitions/**/*.ts'
+    ],
+    paths: ['features/**/*.feature'],
+    format: ['./reporter.ts'],
+    publishQuiet: true
+  }
 };
